@@ -1,0 +1,62 @@
+@import "mixins"
+
+#menu
+	float left
+	color #eee
+	font-size 14px
+	white-space nowrap
+	line-height 42px
+	position relative
+	z-index 20
+	background-color #3f3f3f
+	user-select(none)
+	.item
+		position relative
+		overflow hidden
+		border-bottom 1px solid rgba(0, 0, 0, 0.3)
+		transition(all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms)
+		.name
+			padding 0 50px 0 20px
+			display block
+			position relative
+			i
+				display inline-block
+				margin -3px 10px 0 0
+	.item.current, .item:hover
+		background-color #d64535
+	.item:hover > .action-right i
+		color white
+	.item:after
+		content ''
+		display block
+		position absolute
+		float right
+		border-style solid
+		border-color transparent #D64535
+		border-width 0
+		right 0
+		top 22px
+		transition(.2s)
+	.item.current:after
+		border-width 22px 0 22px 23px
+		top 0
+		right -23px
+	.action-right
+		position absolute
+		right 0
+		display block
+		width 42px
+		text-align center
+		z-index 1
+		transition(all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms)
+		i
+			color transparent
+			transition(all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms)
+	.action-right:hover, .action-right.current
+		box-shadow(0 0 12px rgba(0, 0, 0, 0.7))
+	.action-right:hover
+		z-index 2
+		background-color #d64535
+	.action-right.current
+		i
+			color white

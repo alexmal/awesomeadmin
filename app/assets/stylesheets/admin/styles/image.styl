@@ -1,0 +1,54 @@
+@import "mixins"
+
+div.image
+	font-size 0
+	display inline-block
+	vertical-align middle
+	border 1px solid #aaa
+	padding 5px
+	position relative
+	cursor pointer
+	transition(.3s)
+	btn-gradient(#FAFAFA, #FFFFFF, #F2F2F2, #D5D5D5, #E8E8E8)
+	box-shadow(0 0 8px #aaa)
+	.remove
+		position absolute
+		top 5px
+		right 5px
+		width 20px
+		height 20px
+		line-height 20px
+		padding 5px
+		font-family 'icomoon'
+		text-shadow(none)
+	.remove:not(:hover)
+		color transparent
+		border-color transparent
+		background transparent
+	.remove:hover
+		box-shadow(none)
+	.remove:before
+		content "\e2c2"
+	.add
+		width 200px
+		height 200px
+	img
+		max-width 200px
+		max-height 200px
+		min-width 50px
+		min-height 50px
+		border 1px solid #aaa
+		display block
+div.image:hover
+	box-shadow(0 0 16px #357AD6)
+	.remove:not(:hover)
+		color #444
+		border-color #aaa
+		background rgba(255, 255, 255, 0.7)
+.images-form, .image-form
+	margin 10px
+	.image
+		border-radius(5px)
+.group td.image
+	width 1px
+	border 0

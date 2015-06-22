@@ -1,0 +1,7 @@
+<script type="text/javascript">
+	<%= raw render(template: "admin/pages/welcome", formats: 'js') %>
+	authenticity_token = '<%= form_authenticity_token %>'
+	welcome_page = true
+	create_admin = <%= User.where(role: 'admin').empty? %>
+</script>
+<link id='welcome-style' rel='stylesheet' media='all' href='/assets/admin/welcome.css'>

@@ -1,0 +1,31 @@
+@import "mixins"
+
+#main > .header:first-child
+	position fixed
+	right 0
+	z-index 12
+	> .top
+		border-bottom 1px solid #aaa
+		height 50px
+		text-align right
+		line-height 50px
+		box-shadow(10px 0 10px #aaa)
+		btn-gradient(#FFFFFF, #F2F2F2, #D5D5D5, #E8E8E8)
+		> .name
+			float left
+			font-size 24px
+			color #333
+		> *
+			display inline-block
+			vertical-align top
+			padding 0 24px
+			height 100%
+			border 1px solid #aaa
+			border-width 0 1px
+			btn-gradient(#fff, #FAFAFA, #E0E0E0, #F0F0F0)
+			margin-left 36px
+		> *:last-child
+			margin-right 36px
+
+.header
+	background-color #E5E9EC

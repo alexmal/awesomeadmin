@@ -1,0 +1,61 @@
+@import "mixins"
+
+.dropdown
+	position relative
+	display inline-block
+	transition(.3s)
+	> p
+		padding 0 12px
+		line-height 32px
+		border 1px solid #aaa
+		cursor pointer
+		btn-gradient(#FAFAFA, #FFFFFF, #F2F2F2, #D5D5D5, #E8E8E8)
+		user-select(none)
+		transition(.3s)
+	> p:after
+		content "\e36a"
+		display inline-block
+		vertical-align middle
+		font-family 'icomoon'
+	> div
+		position absolute
+		background-color transparent
+		z-index 1
+		left 0
+		min-width 100%
+		border-top 1px solid transparent
+		margin-bottom 30px
+		transition(.3s)
+		> *
+			color white
+			display block
+			padding 0 12px
+			cursor pointer
+			line-height 32px !important
+			height 0 !important
+			overflow hidden
+			border 1px solid #222
+			border-width 0 1px
+			user-select(none)
+			transition(.3s)
+		> *:hover
+			background-color #d64535
+			box-shadow(0 0 10px #d64535)
+		.active
+			background-color #d64535			
+.dropdown.active
+	border-color #222
+	> p, > p:hover
+		box-shadow(inset 0 0 16px white)
+	> div
+		background-color #444
+		border-color #222
+		box-shadow(0 0 10px #222)
+		> *
+			height 32px !important
+			border-width 0 1px 1px
+td > .dropdown
+	display block
+	> p
+		border 0
+		white-space nowrap

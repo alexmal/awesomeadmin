@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin</title>
+  <%= stylesheet_link_tag    'admin/admin', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'admin/app' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="structure">
+	<div id="menu"></div>
+	<div id="main">
+		<%= yield %>
+	</div>
+</div>
+<div id="notify"></div>
+<div data-params="<%= @data %>"></div>
+<div id="dark">
+	<p class="bg" onclick="dark.close()"></p>
+	<div class="ask">
+		<div class="title">Подтвердите действие</div>
+		<div class="text">
+			<p></p>
+		</div>
+		<div class="buttons">
+			<div class="btn white cancel" onclick="dark.close()">Отменить</div>
+			<div class="btn ok"></div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

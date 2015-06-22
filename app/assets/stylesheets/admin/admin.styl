@@ -1,0 +1,642 @@
+//= require_self
+//= require_tree ./styles
+
+@font-face
+  font-family 'Droid Sans'
+  font-style normal
+  font-weight 400
+  src unquote("local('Droid Sans'), local('DroidSans'), url('http://fonts.gstatic.com/s/droidsans/v6/s-BiyweUPV0v-yRb-cjciPk_vArhqVIZ0nv9q090hN8.woff2') format('woff2')")
+  unicode-range unquote("U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000")
+
+@import "./styles/mixins"
+
+@keyframes animation-notify {
+  0% {
+  	opacity: 0;
+  	transform: scale3d(.3, .3, .3);
+  }
+  30% {
+  	opacity: 1;
+  	top: 30px;
+  	transform: scale3d(1, 1, 1);
+  }
+  90% {
+  	opacity: 1;
+  	top: 30px;
+  	transform: scale3d(1, 1, 1);
+  }
+  100% {
+  	opacity: 0;
+  	top: -30px;
+  	transform: scale3d(.3, .3, .3);
+  }
+}
+
+@keyframes spin {
+  0% {
+  	transform(rotate(0deg))
+  }
+  50% {
+  	transform(rotate(180deg))
+  }
+  100% {
+  	transform(rotate(360deg))
+  }
+}
+
+html, body
+	height 100%
+a
+	text-decoration none
+	color inherit
+*
+	margin 0
+	padding 0
+	font-family 'Droid Sans', sans-serif
+.b
+	font-weight bold
+.ib
+	display inline-block !important
+.tal
+	text-align left
+.tar
+	text-align right
+.m0auto
+	margin 0 auto !important
+body
+	font-size 0
+	overflow auto
+	background-color #3f3f3f
+	color #333
+#structure
+	display table
+	width 100%
+	height 100%
+	> div
+		display table-cell
+		vertical-align top
+#main
+	font-size 14px
+	background-color #E5E9EC
+	position relative
+	text-align center
+	width 100%
+.hide
+	display none
+.hidden
+	display none !important
+.text-center
+	text-align center
+.capitalize
+	text-transform capitalize
+.nopad
+	padding 0 !important
+.pad
+	padding 0 12px
+.m15
+	margin 15px
+.mt10
+	margin-top 10px
+.mb10
+	margin-bottom 10px
+.mlr10
+	margin-left 10px
+	margin-right 10px
+#notify
+	position fixed
+	color white
+	font-size 0
+	top -30px
+	right 50px
+	opacity 0
+	z-index 10000
+	transition(.8s)
+	> *
+		vertical-align middle
+		display inline-block
+		border 1px solid #509e19
+		border-bottom-color #198d0f
+		border-top-color #6dbe38
+		btn-gradient(#b2ff4a, #6bde2d, #43b81a, #3bb118)
+	i
+		font-size 40px
+		height 40px
+		width 40px
+		line-height 40px
+		padding 8px 10px 10px
+		text-align center
+		position relative
+		z-index 1
+		border-radius(30px)
+	p
+		font-size 22px
+		padding 10px 30px
+		margin-left -11px
+		border-radius(0 10px 10px 0)
+#notify.red
+	> *
+		border 1px solid #9E1919
+		border-bottom-color #8D0F0F
+		border-top-color #BE3838
+		btn-gradient(#FF0A0A, #FF2828, #B80000, #8E0000)
+	i:before
+		content "\e2c2"
+#notify.show
+	animation(animation-notify 3s)
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, button:focus
+	outline 0
+button
+	cursor pointer
+.content
+	background-color white
+	padding 0 20px
+	border 1px solid #ddd
+	margin 100px 50px
+	border-radius(4px)
+	box-shadow(0 3px 5px #aaa)
+.loading:before
+	content "\e0a3"
+	font-family 'icomoon'
+	display block
+	float left
+	margin-right 10px
+	animation(spin linear infinite 1s)
+.row
+	display table
+	border-spacing 0
+	border-collapse separate
+	width 100%
+	> *, .error.active
+		white-space nowrap
+		display table-cell !important
+		width 1%
+		border 1px solid #aaa
+		border-right 0
+		line-height 32px
+		z-index 1
+		btn-gradient(#FFFFFF, #F2F2F2, #D5D5D5, #E8E8E8)
+		box-sizing(border-box)
+	> *:last-child, .error.active
+		border-right 1px solid #aaa
+	> input[type=text], input[type=email], input[type=password]
+		background white
+		border 1px solid #bbb
+		width 100%
+		z-index 0
+	> input[type=text] + *, input[type=email] + *, input[type=password] + *
+		border-left 0
+	.min
+		width 1%
+		text-align right
+	.max
+		width 90%
+	> p
+		padding 0 12px
+		> i
+			position relative
+			top -1px
+	> i
+		text-align center
+		width 32px
+		color #555
+		cursor pointer
+		transition(.3s)
+	> .error
+		position static
+		background-color #d64535
+	> .error.active
+		color white
+	.noborder
+		border-width 0
+	* + .noborder
+		border-width 0 0 0 1px
+	.noborder + .noborder
+		border-width 0
+.row.textarea
+	> *
+		vertical-align middle
+	textarea
+		width 99%
+		line-height 18px
+		height 80px
+		padding 10px
+input[type=text], input[type=email], input[type=password]
+	padding 6px 12px
+	font-size 14px
+	line-height 22px
+	color #555
+	background-color #fff
+	border 1px solid #bbb
+	position relative
+	box-shadow(inset 0 1px 1px rgba(0,0,0,.075))
+	transition(unquote('border-color ease-in-out .15s,box-shadow ease-in-out .15s'))
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus
+	outline none
+	border-color #66afe9
+	box-shadow(unquote('inset 0 0 8px rgba(0,0,0,.3),0 0 8px rgba(102,175,233,.6)'))
+input[type=text]:disabled
+	background-color #eaeaea
+hr
+	border 0
+	border-top 1px solid #ccc
+#dark
+	position fixed
+	top 0
+	left 0
+	right 0
+	bottom 0
+	z-index 999
+	display none
+	.bg
+		position absolute
+		height 100%
+		width 100%
+		background-color rgba(0, 0, 0, 0.3)
+		box-shadow(inset 0 0 150px rgba(0, 0, 0, 0.6))
+	> div
+		display none
+		position fixed
+		top 50%
+		left 50%
+		z-index 1000
+		box-shadow(0 5px 150px rgba(0, 0, 0, 0.8))
+	.ask
+		width 400px
+		height 200px
+		margin-top -100px
+		margin-left -200px
+		.title
+			height 42px
+			color white
+			font-size 18px
+			line-height 44px
+			padding-left 20px
+			background-color #54BD48
+			border 1px solid #3D9333
+			border-radius(3px 3px 0 0)
+		.text
+			background-color white
+			height 50px
+			border 1px solid #aaa
+			border-bottom 0
+			font-size 16px
+			color #333
+			padding 25px
+			line-height 25px
+			text-align center
+		.buttons
+			background-color white
+			border 1px solid #aaa
+			padding 10px
+			text-align right
+			border-radius(0 0 3px 3px)
+			> div
+				margin-left 10px
+#dark.show
+	display block
+	.show
+		display block
+.edit-model
+	.rename, .change, .remove
+		display none
+.nav-tabs
+	text-align center
+	border-bottom 1px solid #d64535
+	p
+		cursor pointer
+		color #333
+		display inline-block
+		vertical-align top
+		font-size 14px
+		padding 10px 15px 10px
+		border 1px solid transparent
+		border-bottom 0
+		transition(.3s)
+	p:hover
+		color black
+		background-color #f8f8f8
+		border-color #d64535
+	.active
+		color white !important
+		btn-gradient(#d64535, #FF7262, #F44936, #D7311F, #d64535)
+.tabs
+	background-color white
+	border 1px solid #aaa
+	border-top 0
+	> div
+		display none
+		padding 15px
+	> .active
+		display block
+label.checkbox
+	display inline-block
+	height 34px
+	line-height 34px
+	position relative
+	user-select(none)
+	input
+		display none
+	> div
+		display inline-block
+		vertical-align middle
+		position absolute
+		top 8px
+		left 16px
+		width 15px
+		height 15px
+		background-color rgba(255, 255, 255, 0.8)
+		border 2px solid #444
+		font-size 13px
+		cursor pointer
+		font-family 'icomoon'
+		transition(unquote("all 100ms cubic-bezier(0.23, 1, 0.32, 1) 0ms"))
+		border-radius(3px)
+	> div:after
+		content "\e2aa"
+		width 15px
+		height 15px
+		line-height 15px
+		position absolute
+		left 0
+		background-color #00BCD4
+		color white
+		opacity 0
+		transform(scale(0))
+		transition(unquote("opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, transform 0ms cubic-bezier(0.23, 1, 0.32, 1) 450ms"))
+	div.checked
+		border-color #00BCD4
+		transition(unquote("all 100ms cubic-bezier(0.23, 1, 0.32, 1) 0ms"))
+	div.checked:after
+		opacity 1
+		transform(scale(1))
+		transition(unquote("opacity 0ms cubic-bezier(0.23, 1, 0.32, 1) 0ms, transform 800ms cubic-bezier(0.23, 1, 0.32, 1) 0ms"))
+label.radio
+	display block
+	cursor pointer
+	> div:before, > div:after
+		content "\e0e1"
+		font-family 'icomoon'
+		display block
+		width 18px
+		height 18px
+		position absolute
+		top 0
+		left 0
+		font-size 18px
+	> div:after
+		content "\e0e2"
+		color transparent
+		transition(.3s)
+	div.checked:after
+		color #333
+	div
+		cursor pointer
+		width 18px
+		height 18px
+		position relative
+		display inline-block
+		margin-right 8px
+		position relative
+		top 1px
+		input
+			display none
+.labels label
+	display block
+.center-row .row
+	margin 0 auto 15px
+p.error
+	display none
+	font-size 16px
+	padding 0 15px
+	line-height 36px
+	position absolute
+	color transparent
+	transition(.3s)
+p.error.active
+	color #e22
+label.group.tags
+	display block
+	> p
+		float left
+		line-height 40px
+		width 200px
+		font-size 16px
+	> div
+		margin-left 200px
+		margin-right 32px
+		> form
+			width 100%
+			display table
+			border 1px solid #bbb
+			padding-right 26px
+			*
+				display table-cell
+				width 5%
+				vertical-align top
+			> div
+				padding 3px 0 3px 3px
+				position relative
+				white-space nowrap
+				*
+					background-color #239169
+					color white
+					height 34px
+					line-height 33px
+				i
+					font-size 13px
+					cursor pointer
+					padding 0 4px 0 8px
+				p
+					padding-right 8px
+			input
+				width 95%
+				padding 7px 13px
+				height 26px
+				width 100%
+				border 0
+			input:focus
+				box-shadow(none)
+label.group.tags.red > div > form > div *
+	background-color #D83E3E
+.tag-container
+	border 1px solid #bbb
+	line-height 28px
+	font-size 14px
+	padding-bottom 12px
+	h2
+		margin 0
+		padding 0
+		border 0
+		line-height 34px
+		font-size 16px
+		text-align center
+		margin-bottom 6px
+	div
+		min-height 34px
+	p
+		cursor pointer
+		display inline-block
+		padding 0 12px
+		margin 5px
+		color white
+		border 1px solid
+		i
+			position relative
+			top -2px
+			left -4px
+			margin-right 2px
+.tag-container.blue
+	background-color #84DCFC
+	border-color #3BA1C7
+	box-shadow(inset 0 0 15px #3BA1C7)
+	h2
+		color #0D3A56
+	p
+		background-color #174684
+		border-color #03183A
+.tag-container.green
+	background-color #A9E775
+	border-color #77B642
+	box-shadow(inset 0 0 15px #77B642)
+	h2
+		color #2D552D
+	p
+		background-color #366E1F
+		border-color #174107
+.tag-container.red
+	background-color #EF9090
+	border-color #C55F5F
+	box-shadow(inset 0 0 15px #C55F5F)
+	h2
+		color #552D2D
+	p
+		background-color #C72727
+		border-color #C55F5F
+.radio-tabs
+	> div
+		display none
+	> .active
+		display block
+.textarea-wrap
+	padding-right 40px !important
+	background #eee
+	padding-bottom 5px !important
+	textarea
+		width 100%
+		min-height 300px
+		padding 12px
+		color #555
+		background-color #ffb
+		box-shadow(0 0 20px #bbb)
+.relation-window, .relation-record
+	border 1px solid #aaa
+.relation-record
+	margin 15px
+	position relative
+	.remove-relation
+		position absolute
+		top -34px
+		right 40px
+		border-radius(5px 5px 0 0)
+.relation-record + .relation-record
+	margin-top 30px
+#paginator
+	font-size 0
+	height 50px
+	user-select(none)
+	> div
+		display inline-block
+		font-size 14px
+		height 22px
+		width 22px
+		text-align center
+		border 1px solid #aaa
+		margin 0 3px
+		line-height 22px
+		vertical-align middle
+		cursor pointer
+		transition(.3s)
+		btn-gradient(#FFFFFF, #FFFFFF, #fcfcfc, #e0e0e0, #f1f1f1)
+		border-radius(3px)
+	.active
+		color white
+		btn-gradient(#8AD7ED, #3DC4EC, #8AD7ED, #32AED3, #56C2E2)
+	.prev, .next
+		color #32AED3
+		line-height 19px
+		background-color white
+	.prev
+		border-radius(3px 0 0 3px)
+	.next
+		border-radius(0 3px 3px 0)
+#order
+	border-bottom 1px solid #aaa
+	position relative
+	z-index 15
+	> p
+		cursor pointer
+	div
+		text-align left
+		opacity 0
+		transition(.3s)
+		i
+			margin 0 10px
+			border 1px solid #aaa
+			padding 3px
+			cursor pointer
+			border-radius(3px)
+			btn-gradient(#FFFFFF, #FFFFFF, #fcfcfc, #e0e0e0, #f1f1f1)
+		p
+			height 0
+			line-height 25px
+			overflow hidden
+			transition(.3s)
+		.icon-arrow-down5
+			float left
+		.icon-arrow-up5
+			float right
+	.active
+		opacity 1
+		p
+			height 25px
+			padding 10px 0
+		p + p
+			border-top 1px solid #aaa
+#where-wrap
+	max-width 1100px
+	padding 0 50px
+	margin 0 auto
+#where
+	border 1px solid #aaa
+	border-top 0
+	padding 20px 0
+	line-height 34px
+	p
+		height 34px
+		line-height 34px
+		text-align right
+		width 451px
+		margin 0 auto 12px
+		input
+			margin-left 20px
+	box-shadow(0 0 16px #aaa)
+	btn-gradient(#FFFFFF, #FFFFFF, #fcfcfc, #e0e0e0, #f1f1f1)
+	> *
+		vertical-align top
+	input
+		width 300px
+	.submit
+		margin-left 20px
+		width 75px
+		input
+			display none
+.records
+	padding 10px 50px 0
+.no-records
+	display inline-block
+	background-color white
+	padding 10px 20px
+	margin-top 20px
+	border 1px solid #ccc
+	font-size 16px
+	border-radius(5px)

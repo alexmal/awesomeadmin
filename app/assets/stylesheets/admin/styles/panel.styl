@@ -1,0 +1,38 @@
+@import "mixins"
+
+.panel
+	border 1px solid #bbb
+	color #333
+	> *
+		padding 12px
+	> p
+		background-color #fafafa
+		line-height 16px
+		border-bottom 1px solid #bbb
+		font-weight bold
+		text-align left
+		box-shadow(inset 0 0 12px #eee)
+.panel.red
+	border-color #EC2222
+	> p
+		color white
+		border-bottom-color #8D0F0F
+		text-shadow(0 1px 0 #A81111)
+		btn-gradient(#DA4A4A, #FF4A4A, #DE2D2D, #B81A1A, #B11818)
+		box-shadow(none)
+.panel.green
+	border-color #3FA932
+	> p
+		color white
+		border-bottom-color #198d0f
+		text-shadow(0 1px 0 #25a811)
+		btn-gradient(#7ada4a, #b2ff4a, #6bde2d, #43b81a, #3bb118)
+		box-shadow(none)
+.panel.blue
+	border-color #2243EC
+	> p
+		color white
+		border-bottom-color #0034FF
+		text-shadow(0 1px 0 #00f)
+		btn-gradient(#4B76FD, #84ABFF, #4B76FD, #0003FF, #0A4EFF)
+		box-shadow(none)

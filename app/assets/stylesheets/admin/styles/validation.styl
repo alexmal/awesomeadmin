@@ -1,0 +1,48 @@
+@import "mixins"
+
+.validation, .row > .validation
+	position absolute
+	top 30px
+	left 4px
+	padding 0 8px
+	color white
+	width auto !important
+	display block !important
+	height 0
+	overflow hidden
+	opacity .5
+	border 0 !important
+	background transparent !important
+	box-shadow(none !important)
+	transition(.3s)
+	p
+		background #d64535 !important
+		padding 0 12px 0 38px
+		border-radius(16px)
+.validation:before
+	content ''
+	display block
+	width 0
+	height 0
+	border-color #d64535 transparent
+	border-style solid
+	border-width 0
+	position absolute
+	top 0
+	left 32px
+.validation:after
+	content "\e142"
+	display block
+	position absolute
+	top 8px
+	left 18px
+	font-size 20px
+	font-family 'icomoon'
+.validation.active, .row > .validation.active
+	opacity 1
+	padding 8px
+	height auto
+	p
+		box-shadow(0 0 8px #666)
+.validation.active:before, .row > .validation.active:before
+	border-width 0 8px 8px 8px

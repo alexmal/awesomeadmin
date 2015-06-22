@@ -1,0 +1,8 @@
+<script type="text/javascript">
+	<% if @page %>
+		<%= raw render(template: "admin/pages/#{@page}", formats: 'js') %>
+	<% end %>
+	data = <%= raw @data.to_json %>
+	me = <%= raw current_user.to_json %>
+	authenticity_token = '<%= form_authenticity_token %>'
+</script>

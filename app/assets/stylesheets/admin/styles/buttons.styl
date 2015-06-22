@@ -1,0 +1,166 @@
+@import "mixins"
+
+.btn
+	display inline-block
+	text-align center
+	white-space nowrap
+	cursor pointer
+	text-decoration none
+	border 1px solid transparent
+	position relative
+	color #fafafa
+	padding 0 24px
+	line-height 34px
+	font-weight bold
+	user-select(none)
+	transition(.3s)
+	border-radius(3px)
+	> *
+		position relative
+		z-index 1
+.btn:hover
+	color white
+.btn:before
+	content ''
+	display block
+	position absolute
+	top 0
+	right 0
+	bottom 0
+	left 0
+	transition(.3s)
+.btn:after
+	content ''
+	display block
+	position absolute
+	top 0
+	right 0
+	bottom 0
+	left 0
+	transition(.3s)
+.btn.gray
+	color #333
+	border 1px solid #aaa
+	box-shadow(inset 0 0 8px #dcdcdc)
+.btn.gray:hover
+	color black
+.btn.gray:after
+	btn-gradient(#fafafa, #fff, #dcdcdc, #ccc)
+.btn.gray:before
+	background-color rgba(130, 130, 130, 0.12)
+.btn.green
+	border 1px solid #509e19
+	border-bottom-color #198d0f
+	border-top-color #6dbe38
+	text-shadow(0 1px 0 #25a811)
+	box-shadow(inset 0 0 8px #25a811)
+.btn.green:after
+	btn-gradient(#b2ff4a, #6bde2d, #43b81a, #3bb118)
+.btn.green:before
+	background-color rgba(100, 255, 60, 0.12)
+.btn.red
+	border 1px solid #9E1919
+	border-bottom-color #8D0F0F
+	border-top-color #BE3838
+	text-shadow(0 1px 0 #A81111)
+	box-shadow(inset 0 0 8px #A81111)
+.btn.red:after
+	btn-gradient(#FF0A0A, #FF2828, #B80000, #8E0000)
+.btn.red:before
+	background-color rgba(255, 200, 200, 0.12)
+.btn.orange
+	border 1px solid #ff6100
+	border-bottom-color #FF3A00
+	border-top-color #FF7400
+	text-shadow(0 1px 0 #ff4500)
+	box-shadow(inset 0 0 8px #ff4500)
+.btn.orange:after
+	btn-gradient(#FFDF00, #FFAE00, #FF5700, #FF3A00)
+.btn.orange:before
+	background-color rgba(255, 200, 200, 0.12)
+.btn.blue
+	border 1px solid #0034ff
+	border-bottom-color #0034FF
+	border-top-color #3F7CFF
+	text-shadow(0 1px 0 #00f)
+	box-shadow(inset 0 0 8px #1A72D3)
+.btn.blue:after
+	btn-gradient(#2A8EEE, #319AFF, #1A72D3, #1363C4)
+.btn.blue:before
+	background-color rgba(0, 0, 255, 0.12)
+.btn.lightblue
+	border 1px solid #70CAE5
+	border-bottom-color #2BA9CF
+	border-top-color #80DEFA
+	text-shadow(0 1px 0 #32AED3)
+	box-shadow(inset 0 0 8px #00BFF5)
+.btn.lightblue:after
+	btn-gradient(#3DD5FF, #77E1FF, #00C7FF, #00BBF0)
+.btn.lightblue:before
+	background-color rgba(250, 250, 255, 0.12)
+.btn.purple
+	border 1px solid #A100FF
+	border-bottom-color #7000A7
+	border-top-color #C435FF
+	text-shadow(0 1px 0 #5e0062)
+	box-shadow(inset 0 0 8px #5e0062)
+.btn.purple:after
+	btn-gradient(#E542FF, #E04FFF, #b121f7, #9700d5)
+.btn.purple:before
+	background-color rgba(255, 255, 255, 0.12)
+.btn.white
+	border-color #aaa
+	background-color white
+	color #333
+.btn.white:hover
+	border-color #666
+	color black
+.btn.white:before
+	background-color rgba(200, 200, 200, 0.12)
+.btn.fade
+	text-shadow(none)
+.btn.fade:after
+	opacity 0
+.btn.fade:hover:after
+	opacity 1
+.btn.fade:before
+	background-color transparent
+.btn.fade:not(:hover)
+	background white
+	color #333
+	border-color #ccc
+	box-shadow(none)
+	
+.btn:hover:before
+	background-color transparent
+
+.buttons-list
+	border 1px solid #aaa
+	margin 0 30px
+	padding 10px
+	.btn
+		margin 0 2px
+
+.buttons-group
+	font-size 0
+	.btn
+		margin 2px
+
+.group
+	td.btn
+		padding 0
+		display table-cell
+		border-radius(0)
+		.btn
+			padding 0
+			height 36px
+			line-height 36px
+			width 100%
+			border-radius(0)
+		.fade
+			border-color transparent #ccc transparent #ccc
+
+.btn > .edit:before
+	content "\e11e"
+.btn > .remove:before
+	content "\e0d7"

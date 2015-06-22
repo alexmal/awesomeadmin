@@ -1,0 +1,150 @@
+@import "mixins"
+
+table
+	line-height 32px
+td
+	display table-cell !important
+	> input[type=text], > input[type=email], > input[type=password]
+		height 34px
+table.style
+	width 100%
+	border-spacing 0
+	line-height 32px
+	border-collapse collapse
+	input[type=text]
+		box-shadow(inset 0 0 10px #aaa)
+		box-sizing(border-box)
+		border 0
+		width 100%
+	input[type=text]:focus
+		box-shadow(inset 0 0 12px #2C97ED)
+	.min
+		width 1%
+		input
+			text-align right
+	tr
+		background white
+	th, td
+		border 1px solid #aaa !important
+	th
+		color white
+		border-color #222 !important
+		padding 0 12px
+		text-shadow(0 1px 3px black)
+		btn-gradient(#444, #777, #555, #333, #444)
+	td
+		position relative
+		> a
+			display block
+		> .btn
+			border 0 !important
+	.row
+		*
+			border 0
+		p:first-child
+			border-right 1px solid #aaa
+#records
+	padding 106px 50px 50px
+.group
+	width 100%
+	margin-bottom 5px
+	table
+		width 100%
+		color #444
+		line-height 38px
+		border-collapse collapse
+	td
+		border 1px solid #ccc
+		background-color white
+		white-space nowrap
+	td.input
+		border 0
+		input
+			line-height 38px
+	p
+		padding 0 12px
+	a
+		display block
+		height 38px
+	.relations
+		border 1px solid #ccc
+		border-width 0 1px
+		border-top 0
+		margin 0 30px
+		padding 0 10px
+		background-color rgba(255, 255, 255, 0.5)
+		transition(.3s)
+	.relations.active
+		border-width 1px
+		margin-bottom 15px
+		padding 10px
+	.relation-header
+		border 1px solid #aaa
+		border-width 0 1px
+		font-weight bold
+		btn-gradient(#FFFFFF, #F2F2F2, #D5D5D5, #E8E8E8)
+		> div
+			overflow hidden
+			height 0
+			transition(.3s)
+			> div *
+				padding-top 0 !important
+				padding-bottom 0 !important
+				border-top 0 !important
+				border-bottom 0 !important
+				line-height 36px
+			> div *:first-child
+				border-left 0 !important
+			> div *:last-child
+				border-right 0 !important
+		.group-header
+			padding 0
+	.relation-wrap
+		transition(.3s)
+		> .group
+			display none
+	.relation-wrap.active
+		margin-bottom 10px
+		> .relation-header
+			border-width 1px
+			> div
+				height 36px
+		> .group
+			display block
+	.relation-wrap.start > .group
+		display block
+	.relation-wrap:last-child
+		margin-bottom 0
+.group:last-child
+	margin-bottom 0
+.group-header
+	padding 10px 50px 0
+	z-index 10
+	margin 0 auto
+	> div
+		display table
+		width 100%
+		color white
+		font-weight bold
+		line-height 38px
+		btn-gradient(#777, #555, #333, #444)
+		*
+			border 1px solid #222
+			display table-cell
+			padding 0 12px
+			text-shadow(0 1px 3px black)
+		* + *
+			border-left 0
+.form table
+	width 100%
+	border-spacing 20px
+
+table.checkboxes
+	border-spacing 0
+	.checkbox
+		border-width 0 0 1px 1px
+		padding 0 15px 0 30px
+	td:last-child .checkbox
+		border-right-width 1px
+	tr:first-child .checkbox
+		border-top-width 1px
