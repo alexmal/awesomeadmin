@@ -1,5 +1,5 @@
 Awesomeadmin::Engine.routes.draw do
-  devise_for :users, path_names: {sign_in: 'welcome', sign_out: 'logout'}, controllers: { registrations: 'admin/registrations', sessions: 'admin/sessions' }
+  devise_for :users, path: '/', path_names: {sign_in: 'welcome', sign_out: 'logout'}, controllers: { registrations: 'admin/registrations', sessions: 'admin/sessions' }
 
   match '/', to: 'admin/admin#home', via: [:get, :post]
 
