@@ -88,7 +88,7 @@ app.go = (url, params) ->
 			<a class='name' href='/admin/model/#{model}' onclick='ripple(event, this); app.aclick(this)'><i class='#{icon}'></i><span>#{name}</span><div class='ripple'></div></a>
 		</div>"
 	html: (role) ->
-		app.menu.html "<div class='item'><a href='/' onclick='ripple(event, this)' class='name'><i class='icon-home4'></i>На главную<div class='ripple'></div><div class='ripple'></div></a></div>#{menu[role]().join ''}<div class='item'><a rel='nofollow' onclick='ripple(event, this)' class='name' data-method='delete' href='/admin/logout'><i class='icon-exit'></i>Выход<div class='ripple'></div></a></div>"
+		app.menu.html "<div class='item'><a href='/' onclick='ripple(event, this)' class='name'><i class='icon-home4'></i>На главную<div class='ripple'></div><div class='ripple'></div></a></div>#{if menu[role] then menu[role]().join '' else ''}<div class='item'><a rel='nofollow' onclick='ripple(event, this)' class='name' data-method='delete' href='/admin/logout'><i class='icon-exit'></i>Выход<div class='ripple'></div></a></div>"
 ready = ->
 	app.yield = $ '#main'
 	if !app.menu
