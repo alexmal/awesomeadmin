@@ -132,10 +132,12 @@ class Admin::RecordController < Admin::AdminController
 	end
 
 	def copy
-		records = {}
-		def getRecs p, recs, parent
-			recs.map do |r|
-				ret = {}
+		@data = {}
+		def getRecs model, p, recs, parent
+			return false if cant? :create, model
+			p = {} if p == 'true'
+			records = []
+			for r in recs
 				dup = r.dup
 				if p[:set]
 					for k, v in p[:set]
@@ -143,54 +145,30 @@ class Admin::RecordController < Admin::AdminController
 					end
 				end
 				if parent
-					dup[parent[:name] + '_id'] = parent[:id]
+					dup[parent[:model] + '_id'] = parent[:id]
 				end
 				dup.save
-				user_log model: p[:name], record_id: dup.id, action: :create
-				ret[:record] = dup
+				user_log model: model, record_id: dup.id, action: :create
 				if p[:has_many]
-					ret[:has_many] = {}
-					for i, v in p[:has_many]
-						return false if cant? :create, v[:name]
-						ret[:has_many][v[:name]] = getRecs(v, r.send(v[:name].pluralize), {name: p[:name], id: dup.id})
-						return false unless ret[:has_many][v[:name]]
+					for sub_model, hash in p[:has_many]
+						return false unless getRecs(sub_model, hash, r.send(sub_model.pluralize), {model: model, id: dup.id})
 					end
 				end
-				ret
+				records << dup
 			end
-		end
-		for i, copy in params[:copy]
-			return rend(data: 'permission denied') if cant? :create, copy[:name]
-			records[copy[:name]] = getRecs(copy, copy[:name].classify.constantize.find(copy[:find]), false)
-			return rend(data: 'permission denied') unless records[copy[:name]]
-		end
-		rend data: records
-	end
-
-	def copy_between_sizes
-		return rend(data: 'permission denied') if cant?(:create, 'size') or cant?(:create, 'color') or cant?(:create, 'texture') or cant?(:create, 'option')
-		from = Size.find(params[:from])
-		to = Size.find(params[:to])
-		from.colors.each do |color|
-			dup = color.dup
-			dup.size_id = to.id
-			dup.save
-			user_log model: 'color', record_id: dup.id, action: :create
-			color_id = dup.id
-			color.textures.each do |texture|
-				dup = texture.dup
-				dup.color_id = color_id
-				dup.save
-				user_log model: 'texture', record_id: dup.id, action: :create
+			@data[model] = {records: records}
+			if p[:has_many]
+				@data[model][:ids] = {}
+				for sub_model, hash in p[:has_many]
+					@data[model][:ids][sub_model] = records.map {|r| r.send(sub_model + '_ids')}
+				end
 			end
+			true
 		end
-		from.options.each do |option|
-			dup = option.dup
-			dup.size_id = to.id
-			dup.save
-			user_log model: 'option', record_id: dup.id, action: :create
+		for model, hash in params[:copy]
+			return rend(data: 'permission denied') unless getRecs(model, hash, model.classify.constantize.find(hash[:find]), false)
 		end
-		rend data: 'ok'
+		rend data: @data
 	end
 
 	def editorimage

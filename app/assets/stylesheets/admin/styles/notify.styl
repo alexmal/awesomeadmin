@@ -1,0 +1,44 @@
+@import "mixins"
+
+#notify
+	position fixed
+	color white
+	font-size 16px
+	bottom 50px
+	right 50px
+	z-index 10000
+	> div
+		opacity 0
+		margin-top 20px
+		margin-bottom -50px
+		background #333
+		min-width 288px
+		padding 0 24px
+		line-height 48px
+		overflow hidden
+		text-shadow(1px 1px 3px rgba(0, 0, 0, 0.5))
+		transition(.3s)
+		border-radius(3px)
+		box-shadow(0 3px 12px #333)
+		> *
+			display block
+			min-width 48px
+			height 48px
+			line-height 48px
+			text-align center
+			float right
+			box-shadow(0 0 24px black)
+		> i:last-child, .btn:last-child
+			margin-left 24px
+		> .btn
+			padding 0
+			border-radius(0)
+		i
+			font-size 20px
+	> .show
+		margin-bottom 0
+		opacity 1
+	> .green
+		btn-gradient(#b2ff4a, #6bde2d, #43b81a, #3bb118)
+	> .red
+		btn-gradient(#FF0A0A, #FF2828, #B80000, #8E0000)

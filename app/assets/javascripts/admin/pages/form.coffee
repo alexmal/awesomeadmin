@@ -1,7 +1,7 @@
 page = ->
 	$(window).off 'scroll'
 	name = param.model
-	template = app.templates.form[name]
+	template = app.form[name]
 	param.id = parseInt param.id
 	id = param.id
 	window[k] = v for k, v of template.functions if template.functions
@@ -9,6 +9,7 @@ page = ->
 		id = parseInt param.id
 		if id
 			window.rec = db[param.model].records[id]
+			app.menu.current = "model/#{param.model}/new"
 		else window.rec = false
 		window.model = param.model
 		app.yield.html template.page() + "<link rel='stylesheet' type='text/css' href='/lightbox/lightbox.min.css'><script src='/tinyMCE/tinymce.min.js'><script src='/lightbox/lightbox.min.js'>"
@@ -50,7 +51,7 @@ page = ->
 		td ret + "</div>", attrs
 	window.addFormCb = ->
 		if tinymce?
-			tinymce.init selector: ".tinyMCE", plugins: 'link image code textcolor', language : 'ru', setup: (editor) ->
+			tinymce.init selector: ".tinyMCE", plugins: 'link image code textcolor', language : 'ru', height: 377, setup: (editor) ->
 				editor.on 'init', (ed) ->
 					editor.setContent $(ed.target.editorContainer).next().toggleClass('tinyMCE tinyMCE-ready').attr 'value'
 		$(".images-form").sortable

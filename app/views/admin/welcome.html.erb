@@ -3,5 +3,6 @@
 	authenticity_token = '<%= form_authenticity_token %>'
 	welcome_page = true
 	create_admin = <%= User.where(role: 'admin').empty? %>
+	data_rb = <%= raw Admin::Data.to_json %>
 </script>
 <link id='welcome-style' rel='stylesheet' media='all' href='/assets/admin/welcome.css'>

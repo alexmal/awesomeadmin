@@ -1,26 +1,26 @@
 @dropdown =
 	toggle: (el) ->
-		$(el).toggleClass 'active'
-	pick: (el) ->
 		el = $ el
-		val = el.data 'val'
-		html = el.html()
-		dropdown = el.parents('.dropdown')
-		dropdown.find('input').val(val or html)
-		dropdown.find('.active').removeClass 'active'
-		el.addClass 'active'
-		dropdown.find('> p').html html
-	gen: (d) ->
-		d.head ||= 'Выбрать'
-		ret = "<div class='dropdown' onclick='dropdown.toggle(this)'><p>#{d.head}</p><div>"
-		for l in d.list
-			ret += "<p"
-			ret += " class='active'" if d.active and d.active is l
-			ret += " onclick='dropdown.pick(this)'"
-			if typeof l is 'string'
-				ret += ">#{l}"
+		if el.hasClass 'active'
+			el.removeClass 'active'
+		else
+			if el.data 'ready'
+				el.addClass 'active'
 			else
-				ret += " data-val='#{l.val}'" if l.val
-				ret += ">#{l.name}"
-			ret += "</p>"
-		ret + "</div><input type='hidden' name='#{d.name}'></div>"
+				data = el.data()
+				select_params = model: data.model, select: data.field
+				db.get select_params, ->
+					ret = ''
+					if data.choosed then id = parseInt data.choosed else id = 0
+					for rec in db.select select_params
+						ret += "<p#{if rec.id is id then " class='active'" else ''} onclick='dropdown.pick(this, #{rec.id})'><span>#{rec[data.field]}</span></p>"
+					$('> div', el).html ret
+					el.addClass 'active'
+					el.data 'ready', true
+	pick: (el, val) ->
+		el = $ el
+		list = el.parent()
+		$('> .active', list).removeClass 'active'
+		el.addClass 'active'
+		list.prev().html el.html()
+		list.next().val val

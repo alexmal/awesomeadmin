@@ -2,52 +2,19 @@
 	ret = "<div class='header'style='#{if params.absolute then " position: absolute" else ''; if params.top then "left: #{app.menu.width()}px" else ''}'>
 		<div class='top'>
 			<div class='name'>#{name}</div>"
-	if params.where
-		ret += "<div><p style='cursor: pointer' onclick='filter.open()'>Фильтр</p></div>"
-	if params.order
-		ret += "<div id='order'>"
-		for o in params.order
-			if o.active
-				ret += "<p onclick='order.open(this)'>Сортировать по: "
-				for k, v of o
-					ret += "<b>#{v} <i class='icon-arrow-down5'></i></b>"
-					break
-				ret += "</p>"
-		ret += "<div>"
-		for o in params.order
-			for k, v of o
-				ret += "<p><i class='icon-arrow-down5' onclick='order.pick(this)'></i>по <span data-column='#{k}'>#{v}</span><i class='icon-arrow-up5' onclick='order.pick(this)'></i></p>"
-				break
-		ret += "</div></div>"
 	if params.pagination
 		ret += "<div id='paginator'>
 				<div class='prev' onclick='paginator.prev()'><i class='icon-arrow-left'></i></div>
 				<div class='active' onclick='paginator.go(this)'>1</div>"
-		divide = db.count(window.rec) / params.pagination
+		divide = db.count(window.select_params) / window.select_params.limit
 		ret += "<div onclick='paginator.go(this)'>#{page}</div>" for page in [2..1 + Math.floor divide] if divide >= 1
 		ret += "<div class='next' onclick='paginator.next()'><i class='icon-arrow-right2'></i></div>
 			</div>"
 	if params.btn
-		ret += "<div><div onclick='#{params.btn[1]}' class='btn green'><span>#{params.btn[0]}</span></div></div>"
+		ret += "<div><div onclick='ripple(event, this); #{params.btn[1]}' class='btn green'><span>#{params.btn[0]}</span></div></div>"
 	if params.link
 		ret += "<div><a href='#{params.link[1]}' onclick='app.aclick(this)' class='btn green'><span>#{params.link[0]}</span></a></div>"
 	ret += "</div>"
-	if params.where
-		ret += "<div id='where-wrap'><form id='where' onsubmit='filter.change(this)' style='display: none'>"
-		for w in params.where
-			if w is 'all'
-				ret += "<input type='text' name='sql'>"
-			else
-				for k, v of w
-					if typeof v is 'string'
-						name = v
-						cb = ''
-					else
-						for n, t of v
-							name = n
-							cb = " data-cb='#{t}'"
-					ret += "<p><label>#{k}:<input type='text' name='#{name}'#{cb}></label></p>"
-		ret += "<label class='submit btn green'><span>Применить<input type='submit'></span></label></form></div>"
 	if params.group
 		ret += "<div class='group-header'><div>"
 		for h in params.group
@@ -62,7 +29,7 @@
 	ret + "</div>"
 
 @group = (html, params = {}) ->
-	ret = "<div class='group' data-model='#{params.model or window.model}'#{if window.rec then " data-id='#{window.rec.id}'" else ''}><table>#{html}</table>"
+	ret = "<div class='group'#{if params.beforeSave then " data-before-save='#{params.beforeSave}'" else ''} data-model='#{params.model or window.model}'#{if window.rec then " data-id='#{window.rec.id}'" else ''}><table>#{html}</table>"
 	if params.relations
 		subrecs = []
 		if params.relations.has_self_open
@@ -127,8 +94,7 @@
 				val = val.toCurrency() + ' руб.'
 			else if params.format.date
 				val = new Date(val).toString params.format.date
-		else if (params.format.not_null or params.format.decimal or params.format.date) and val is null
-			val = ''
+	val = '' if val is null or val is undefined
 	ret += " value='#{val}'"
 	onchanges = []
 	if params.attrs
@@ -140,6 +106,7 @@
 		onchanges.push "validate(this)"
 		ret += " data-validate-was='#{if window.rec then window.rec[name] else ''}'
 			data-validate='#{JSON.stringify params.validation}'"
+		ret += " data-validate-equal='#{params.validation.equal}'" if params.validation.equal
 	ret += "#{if onchanges.length then " onchange='#{onchanges.join ';'}'" else ''}>"
 	ret += "<div class='validation'><p></p></div>" if params.validation
 	ret + "</label></td>"
@@ -163,8 +130,8 @@
 	if window.rec and window.rec[name]
 		url = window.rec[name]
 		ret += "<div class='image'>
-			<div class='btn red remove' onclick='window.image.removeOneImage(this, \"#{name}\", \"#{url}\")'></div>
-			<a href='#{url}' data-lightbox='product'><img#{if attrs then " " + attrs_line else ''} src='#{url}'></a>
+			<div class='btn red' onclick='window.image.removeOneImage(this, \"#{name}\", \"#{url}\")'><i class='icon-close'></i></div>
+			<a href='#{url}' data-lightbox='product'><img onerror=\"image.broken(this)\"#{if attrs then " " + attrs_line else ''} src='#{url}'></a>
 		</div>"
 		hide = true
 	ret + "<label#{if attrs then " data-attrs='#{attrs_line}'" else ''} class='m15 text-center#{if hide then ' hide' else ''}'>
@@ -207,11 +174,11 @@
 	ret
 
 @drag = -> "<td style='width: 38px' class='btn lightblue drag-handler'><i style='display: inline-block; width: 9px' class='icon-cursor'></i></td>"
-@new_child_link = -> "<td style='width: 38px' class='btn green'><a onclick='app.aclick(this)' href='/admin/model/#{window.model}/new?category_id=#{window.rec.id}'><i class='icon-plus'></i></a></td>"
-@edit = -> "<td style='width: 38px' class='btn orange'><a onclick='app.aclick(this)' href='/admin/model/#{window.model}/edit/#{window.rec.id}'><i class='icon-pencil3'></i></a></td>"
-@destroy = -> "<td style='width: 38px' class='btn red' onclick='removeRecord(this)'><i class='icon-remove3' style='top: -1px'></i></td>"
+@new_child_link = -> "<td style='width: 38px' class='btn green'><a onclick='rippleOut(this); app.aclick(this)' href='/admin/model/#{window.model}/new?category_id=#{window.rec.id}'><i class='icon-plus'></i></a></td>"
+@edit = -> "<td style='width: 38px' class='btn orange'><a onclick='rippleOut(this); app.aclick(this)' href='/admin/model/#{window.model}/edit/#{window.rec.id}'><i class='icon-pencil3'></i></a></td>"
+@destroy = -> "<td style='width: 38px' class='btn red' onclick='rippleOut(this); removeRecord(this)'><i class='icon-remove3' style='top: -1px'></i></td>"
 @buttons = -> edit() + destroy()
-@save = -> "<td style='width: 38px' class='btn green' onclick='groupSaveRecord(this)'><i class='icon-checkmark'></i></td>"
+@save = -> "<td style='width: 38px' class='btn green' onclick='rippleOut(this); groupSaveRecord(this)'><i class='icon-checkmark'></i></td>"
 
 @habtm_checkboxes = (header, model, name, col) ->
 	if window.rec
@@ -234,7 +201,6 @@
 					<label class='checkbox'>
 						<div#{if checked then " class='checked'" else ''}>
 							<input#{if checked then " checked" else ''} class='habtm_checkboxes' name='habtm_checkboxes' type='checkbox' data-field='#{model + '_ids'}' value='#{td_rec.id}' onchange='checkboxChange(this)'>
-							<div class='ripple-out'></div>
 						</div>#{td_rec[name]}
 					</label>
 				</div>
@@ -263,3 +229,9 @@
 		bt_rec = db[model].records[app.qparam[model + '_id']]
 		tb.rec = bt_rec if bt_rec
 	td "<div class='row'><p>#{header}</p>" + treebox.gen(tb) + "</div>", attrs
+
+@dd = (header, model, name, select, attrs) ->
+	if window.rec and window.rec[model + '_id']
+		choosed = db[model].records[window.rec[model + '_id']]
+	else choosed = false
+	td "<div class='row'><p>#{header}</p><div style='width: 100%' class='dropdown' data-model='#{model}' data-field='#{name}'#{if choosed then " data-choosed='#{choosed.id}'" else ''} onclick='dropdown.toggle(this)'><p>#{if choosed then choosed[name] else 'Не выбрано'}</p><div></div><input type='hidden' name='#{model + '_id'}'#{if choosed then " value='#{choosed.id}'" else ''}></div></div>", attrs

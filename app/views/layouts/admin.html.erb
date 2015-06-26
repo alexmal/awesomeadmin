@@ -2,8 +2,8 @@
 <html>
 <head>
   <title>Admin</title>
-  <%= stylesheet_link_tag    'admin/admin', media: 'all' %>
-  <%= javascript_include_tag 'admin/app' %>
+  <%= stylesheet_link_tag    'admin/admin', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'admin/admin' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -15,15 +15,17 @@
 </div>
 <div id="notify"></div>
 <div data-params="<%= @data %>"></div>
-<div id="dark">
-	<p class="bg" onclick="dark.close()"></p>
+<div id="ask">
+	<div class="bg" onclick="$('#ask').removeClass('show')"></div>
 	<div class="ask">
-		<div class="title">Подтвердите действие</div>
+		<div class="title">
+			<div>Подтвердите действие</div>
+		</div>
 		<div class="text">
 			<p></p>
 		</div>
 		<div class="buttons">
-			<div class="btn white cancel" onclick="dark.close()">Отменить</div>
+			<div class="btn white cancel"><span>Отменить</span></div>
 			<div class="btn ok"></div>
 		</div>
 	</div>

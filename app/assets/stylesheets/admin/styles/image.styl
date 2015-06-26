@@ -11,7 +11,7 @@ div.image
 	transition(.3s)
 	btn-gradient(#FAFAFA, #FFFFFF, #F2F2F2, #D5D5D5, #E8E8E8)
 	box-shadow(0 0 8px #aaa)
-	.remove
+	.red
 		position absolute
 		top 5px
 		right 5px
@@ -21,34 +21,48 @@ div.image
 		padding 5px
 		font-family 'icomoon'
 		text-shadow(none)
-	.remove:not(:hover)
+	.red:not(:hover)
 		color transparent
 		border-color transparent
 		background transparent
-	.remove:hover
 		box-shadow(none)
-	.remove:before
-		content "\e2c2"
+	.red:not(:hover):before
+		background-color transparent
+	.red:not(:hover):after
+		opacity 0
 	.add
 		width 200px
 		height 200px
+	.broken
+		width 200px
+		height 118px
+		line-height 118px
+		position relative
+		i
+			font-size 54px
 	img
-		max-width 200px
-		max-height 200px
-		min-width 50px
-		min-height 50px
+		min-width 100px
+		max-width 300px
+		max-height 118px
 		border 1px solid #aaa
 		display block
 div.image:hover
 	box-shadow(0 0 16px #357AD6)
-	.remove:not(:hover)
-		color #444
+	.red:not(:hover)
+		color #aaa
 		border-color #aaa
 		background rgba(255, 255, 255, 0.7)
 .images-form, .image-form
 	margin 10px
 	.image
 		border-radius(5px)
+		margin 10px
 .group td.image
 	width 1px
-	border 0
+	a
+		height inherit
+		min-height 100%
+	.image
+		min-height 100%
+	.blue
+		vertical-align middle

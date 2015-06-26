@@ -48,3 +48,5 @@
 	removeOneImage: (el, field, val) ->
 		$(el).parent().before "<input name='removeImage' type='hidden' data-field='#{field}' value='#{val}'>"
 		@removeNewOneImage el
+	broken: (el) ->
+		$(el).replaceWith "<div class='broken'><i class='icon-image'></i></div>"

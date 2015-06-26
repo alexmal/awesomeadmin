@@ -1,0 +1,31 @@
+@import "mixins"
+
+#paginator
+	font-size 0
+	height 50px
+	user-select(none)
+	> div
+		display inline-block
+		font-size 14px
+		height 22px
+		width 22px
+		text-align center
+		border 1px solid #aaa
+		margin 0 3px
+		line-height 22px
+		vertical-align middle
+		cursor pointer
+		transition(.3s)
+		btn-gradient(#fafafa, #fff, #dcdcdc, #ccc)
+		border-radius(3px)
+	.active
+		color white
+		btn-gradient(#2A8EEE, #319AFF, #1A72D3, #1363C4)
+	.prev, .next
+		color #32AED3
+		line-height 19px
+		background-color white
+	.prev
+		border-radius(3px 0 0 3px)
+	.next
+		border-radius(0 3px 3px 0)

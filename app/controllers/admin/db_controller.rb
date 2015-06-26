@@ -88,7 +88,7 @@ class Admin::DbController < Admin::AdminController
 		rend data: data
 	end
 	def destroy
-		return rend(data: 'permission denied') if cant? :destroy, model_name
+		return rend(data: 'permission denied') if cant? :destroy, params[:model]
 		params[:model].classify.constantize.find(params[:id]).destroy
 		user_log model: params[:model], record_id: params[:id], action: :destroy
 		rend

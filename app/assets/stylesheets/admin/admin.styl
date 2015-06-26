@@ -10,28 +10,6 @@
 
 @import "./styles/mixins"
 
-@keyframes animation-notify {
-  0% {
-  	opacity: 0;
-  	transform: scale3d(.3, .3, .3);
-  }
-  30% {
-  	opacity: 1;
-  	top: 30px;
-  	transform: scale3d(1, 1, 1);
-  }
-  90% {
-  	opacity: 1;
-  	top: 30px;
-  	transform: scale3d(1, 1, 1);
-  }
-  100% {
-  	opacity: 0;
-  	top: -30px;
-  	transform: scale3d(.3, .3, .3);
-  }
-}
-
 @keyframes spin {
   0% {
   	transform(rotate(0deg))
@@ -102,47 +80,6 @@ body
 .mlr10
 	margin-left 10px
 	margin-right 10px
-#notify
-	position fixed
-	color white
-	font-size 0
-	top -30px
-	right 50px
-	opacity 0
-	z-index 10000
-	transition(.8s)
-	> *
-		vertical-align middle
-		display inline-block
-		border 1px solid #509e19
-		border-bottom-color #198d0f
-		border-top-color #6dbe38
-		btn-gradient(#b2ff4a, #6bde2d, #43b81a, #3bb118)
-	i
-		font-size 40px
-		height 40px
-		width 40px
-		line-height 40px
-		padding 8px 10px 10px
-		text-align center
-		position relative
-		z-index 1
-		border-radius(30px)
-	p
-		font-size 22px
-		padding 10px 30px
-		margin-left -11px
-		border-radius(0 10px 10px 0)
-#notify.red
-	> *
-		border 1px solid #9E1919
-		border-bottom-color #8D0F0F
-		border-top-color #BE3838
-		btn-gradient(#FF0A0A, #FF2828, #B80000, #8E0000)
-	i:before
-		content "\e2c2"
-#notify.show
-	animation(animation-notify 3s)
 input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, button:focus
 	outline 0
 button
@@ -221,9 +158,9 @@ button
 		height 80px
 		padding 10px
 input[type=text], input[type=email], input[type=password]
-	padding 6px 12px
+	padding 0 12px
 	font-size 14px
-	line-height 22px
+	line-height 32px
 	color #555
 	background-color #fff
 	border 1px solid #bbb
@@ -236,66 +173,6 @@ input[type=text]:focus, input[type=email]:focus, input[type=password]:focus
 	box-shadow(unquote('inset 0 0 8px rgba(0,0,0,.3),0 0 8px rgba(102,175,233,.6)'))
 input[type=text]:disabled
 	background-color #eaeaea
-hr
-	border 0
-	border-top 1px solid #ccc
-#dark
-	position fixed
-	top 0
-	left 0
-	right 0
-	bottom 0
-	z-index 999
-	display none
-	.bg
-		position absolute
-		height 100%
-		width 100%
-		background-color rgba(0, 0, 0, 0.3)
-		box-shadow(inset 0 0 150px rgba(0, 0, 0, 0.6))
-	> div
-		display none
-		position fixed
-		top 50%
-		left 50%
-		z-index 1000
-		box-shadow(0 5px 150px rgba(0, 0, 0, 0.8))
-	.ask
-		width 400px
-		height 200px
-		margin-top -100px
-		margin-left -200px
-		.title
-			height 42px
-			color white
-			font-size 18px
-			line-height 44px
-			padding-left 20px
-			background-color #54BD48
-			border 1px solid #3D9333
-			border-radius(3px 3px 0 0)
-		.text
-			background-color white
-			height 50px
-			border 1px solid #aaa
-			border-bottom 0
-			font-size 16px
-			color #333
-			padding 25px
-			line-height 25px
-			text-align center
-		.buttons
-			background-color white
-			border 1px solid #aaa
-			padding 10px
-			text-align right
-			border-radius(0 0 3px 3px)
-			> div
-				margin-left 10px
-#dark.show
-	display block
-	.show
-		display block
 .edit-model
 	.rename, .change, .remove
 		display none
@@ -318,7 +195,7 @@ hr
 		border-color #d64535
 	.active
 		color white !important
-		btn-gradient(#d64535, #FF7262, #F44936, #D7311F, #d64535)
+		btn-gradient(#FF0A0A, #FF2828, #B80000, #8E0000)
 .tabs
 	background-color white
 	border 1px solid #aaa
@@ -540,96 +417,6 @@ label.group.tags.red > div > form > div *
 		border-radius(5px 5px 0 0)
 .relation-record + .relation-record
 	margin-top 30px
-#paginator
-	font-size 0
-	height 50px
-	user-select(none)
-	> div
-		display inline-block
-		font-size 14px
-		height 22px
-		width 22px
-		text-align center
-		border 1px solid #aaa
-		margin 0 3px
-		line-height 22px
-		vertical-align middle
-		cursor pointer
-		transition(.3s)
-		btn-gradient(#FFFFFF, #FFFFFF, #fcfcfc, #e0e0e0, #f1f1f1)
-		border-radius(3px)
-	.active
-		color white
-		btn-gradient(#8AD7ED, #3DC4EC, #8AD7ED, #32AED3, #56C2E2)
-	.prev, .next
-		color #32AED3
-		line-height 19px
-		background-color white
-	.prev
-		border-radius(3px 0 0 3px)
-	.next
-		border-radius(0 3px 3px 0)
-#order
-	border-bottom 1px solid #aaa
-	position relative
-	z-index 15
-	> p
-		cursor pointer
-	div
-		text-align left
-		opacity 0
-		transition(.3s)
-		i
-			margin 0 10px
-			border 1px solid #aaa
-			padding 3px
-			cursor pointer
-			border-radius(3px)
-			btn-gradient(#FFFFFF, #FFFFFF, #fcfcfc, #e0e0e0, #f1f1f1)
-		p
-			height 0
-			line-height 25px
-			overflow hidden
-			transition(.3s)
-		.icon-arrow-down5
-			float left
-		.icon-arrow-up5
-			float right
-	.active
-		opacity 1
-		p
-			height 25px
-			padding 10px 0
-		p + p
-			border-top 1px solid #aaa
-#where-wrap
-	max-width 1100px
-	padding 0 50px
-	margin 0 auto
-#where
-	border 1px solid #aaa
-	border-top 0
-	padding 20px 0
-	line-height 34px
-	p
-		height 34px
-		line-height 34px
-		text-align right
-		width 451px
-		margin 0 auto 12px
-		input
-			margin-left 20px
-	box-shadow(0 0 16px #aaa)
-	btn-gradient(#FFFFFF, #FFFFFF, #fcfcfc, #e0e0e0, #f1f1f1)
-	> *
-		vertical-align top
-	input
-		width 300px
-	.submit
-		margin-left 20px
-		width 75px
-		input
-			display none
 .records
 	padding 10px 50px 0
 .no-records

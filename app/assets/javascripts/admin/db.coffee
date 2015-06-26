@@ -446,7 +446,7 @@
 	destroy: (model, id, cb) ->
 		$.post "/admin/model/#{model}/destroy/#{id}", {}, (res) ->
 			if res is 'permission denied'
-				notify 'Доступ запрещен', class: 'red'
+				notify 'Доступ запрещен', 'red'
 			else
 				rec = db[model].records[id]
 				for k, v of rec
@@ -475,7 +475,7 @@
 								change_count = true
 						where_hash.count -= 1 if where_hash.count and change_count
 				delete db[model].records[id]
-				notify 'Запись удалена'
+				notify 'Запись удалена', 'green'
 				cb() if cb
 		, 'json'
 	create_one: (model, fields, cb) ->

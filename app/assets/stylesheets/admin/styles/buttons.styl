@@ -12,6 +12,7 @@
 	padding 0 24px
 	line-height 34px
 	font-weight bold
+	overflow hidden
 	user-select(none)
 	transition(.3s)
 	border-radius(3px)
@@ -28,6 +29,7 @@
 	right 0
 	bottom 0
 	left 0
+	z-index 1
 	transition(.3s)
 .btn:after
 	content ''
@@ -67,7 +69,7 @@
 .btn.red:after
 	btn-gradient(#FF0A0A, #FF2828, #B80000, #8E0000)
 .btn.red:before
-	background-color rgba(255, 200, 200, 0.12)
+	background-color rgba(255, 100, 100, 0.3)
 .btn.orange
 	border 1px solid #ff6100
 	border-bottom-color #FF3A00
@@ -110,13 +112,11 @@
 	background-color rgba(255, 255, 255, 0.12)
 .btn.white
 	border-color #aaa
-	background-color white
 	color #333
-.btn.white:hover
-	border-color #666
-	color black
+.btn.white:after
+	btn-gradient(#fff, #FAFAFA, #E0E0E0, #F0F0F0)
 .btn.white:before
-	background-color rgba(200, 200, 200, 0.12)
+	background-color rgba(0, 0, 0, 0.05)
 .btn.fade
 	text-shadow(none)
 .btn.fade:after
@@ -148,6 +148,7 @@
 
 .group
 	td.btn
+		min-width 38px
 		padding 0
 		display table-cell
 		border-radius(0)
