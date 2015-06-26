@@ -1,6 +1,5 @@
 #= require jquery
 #= require jquery_ujs
-#= require settings
 #= require_self
 #= require_tree
 
