@@ -3,12 +3,12 @@ Awesomeadmin::Engine.routes.draw do
 
   match '/', to: 'admin/admin#home', via: [:get, :post]
 
-  post 'record/copy_between_sizes', to: 'admin/record#copy_between_sizes'
-
   post 'db/get', to: 'admin/db#get'
   post 'db/:model/create', to: 'admin/db#create'
   post 'db/:model/update/:id', to: 'admin/db#update'
   post 'model/:model/destroy/:id', to: 'admin/db#destroy'
+
+  match 'model', to: 'admin/model#index', via: [:get, :post]
 
   match 'model/:model/new', to: 'admin/record#new', via: [:get, :post]
   match 'model/:model/edit/:id', to: 'admin/record#edit', via: [:get, :post]
