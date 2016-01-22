@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Awesomeadmin::VERSION
   s.authors     = ["Romaboy"]
   s.email       = ["romadzao@gmail.com"]
-  s.homepage    = "home"
+  s.homepage    = "/admin"
   s.summary     = "Summary of Awesomeadmin."
   s.description = "Description of Awesomeadmin."
   s.license     = "MIT"
