@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = Awesomeadmin::VERSION
   s.authors     = ["Romaboy"]
   s.email       = ["romadzao@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Awesomeadmin."
-  s.description = "TODO: Description of Awesomeadmin."
+  s.homepage    = "home"
+  s.summary     = "Summary of Awesomeadmin."
+  s.description = "Description of Awesomeadmin."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib,public}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
